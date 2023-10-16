@@ -28,6 +28,7 @@ pipeline {
         stage('xml File Junit'){
             steps{
                 junit 'target/surefire-reports/TEST-JenkinsDemoTest.xml' 
+                junit 'target/surefire-reports/TEST-com.vcjain.calculator.OperationsTest.xml'
             }
         }
         stage('Installation'){
