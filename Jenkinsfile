@@ -25,6 +25,11 @@ pipeline {
                 sh 'mvn test'
             }
         }
+        stage('xml File Junit'){
+            steps{
+                junit 'target/surefire-reports/TEST-JenkinsDemoTest.xml' 
+            }
+        }
         stage('Installation'){
             steps{
                 echo "Installation Stage"
