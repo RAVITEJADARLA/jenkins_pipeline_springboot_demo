@@ -1,46 +1,46 @@
 pipeline {
+    agent any 
     
-    agent any
     tools {
-      maven 'maven3'
+        maven 'maven 3'
     }
-    
-    environment {
-      mysecret = credentials('mysecret')
-    }
-    
     parameters {
-      string defaultValue: 'jenkins', name: 'name'
+        string defaultValue: 'Raviteja', name: 'employeeIDName'
     }
     stages{
-        stage ('Checkout') {
+        stage('CheckOut'){
             steps{
-                checkout poll: false, scm: scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/vcjain/jenkins_pipeline_springboot_demo.git']])
+                checkout poll: false, scm: scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/RAVITEJADARLA/jenkins_pipeline_springboot_demo.git']])
             }
-            
         }
-        stage ('Build') {
-            steps {
-                echo "Build Stage is in progress ${mysecret}"
-                echo "param name is ${params.name}"
+        stage('Build'){
+            steps{  
+                echo "Build Stage"
                 sh 'mvn compile'
             }
-            
         }
-        stage ('Test'){
-            steps {
-                echo "Test Stage is in progress"
+        stage('Unit Test'){
+            steps{
+                echo "Testing Stage"
                 sh 'mvn test'
             }
-            
         }
-        stage ('Install'){
-            steps {
-                echo "Test Stage is in progress"
+        stage('Installation'){
+            steps{
+                echo "Installation Stage"
                 sh 'mvn install'
+            }
+        }
+        stage ('Jar File'){
+            steps{
+                echo "Jar File Generate"
                 archiveArtifacts artifacts: 'target/calculator-0.0.1-SNAPSHOT.jar', followSymlinks: false
             }
-            
+        }
+        stage('Employee Name'){
+            steps{
+                echo "${params.employeeIDName}"
+            }
         }
     }
 }
