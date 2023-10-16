@@ -39,7 +39,7 @@ pipeline {
         stage ('Jar File'){
             steps{
                 echo "Jar File Generate"
-                archiveArtifacts artifacts: 'target/calculator-0.0.1-SNAPSHOT.jar', followSymlinks: false
+                archiveArtifacts artifacts: 'target/calculator-0.0.1-SNAPSHOT.jar', followSymlinks: false 
             }
         }
         stage('Employee Name'){
